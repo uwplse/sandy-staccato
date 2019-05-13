@@ -1,0 +1,13 @@
+*.class
+sootOutput
+*.jar
+.classpath
+.project
+.gradle
+.settings
+paths.gradle
+build/
+classes/
+tmp/
+staccato_logs/
+evaluation/jmeter.log

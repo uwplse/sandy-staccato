@@ -1,0 +1,7 @@
+project: openfire
+project_dir: "/home/staccato/staccato/evaluation/openfire"
+test: "/home/staccato/staccato/evaluation/openfire/tsung-chat-update.xml"
+havoc: "/home/staccato/staccato/evaluation/openfire/openfire_havoc.jmx"
+test_impl: "TsungTest"
+havoc_iter: 250
+#test_iter: 150

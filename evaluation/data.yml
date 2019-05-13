@@ -1,0 +1,38 @@
+memory:
+  jforum:
+    base: [/home/staccato/staccato/evaluation/jforum/data/base/memory-1457669985,
+      /home/staccato/staccato/evaluation/jforum/data/base/memory-1457672148, /home/staccato/staccato/evaluation/jforum/data/base/memory-1457673207]
+    inst: [/home/staccato/staccato/evaluation/jforum/data/inst/memory-1457669527,
+      /home/staccato/staccato/evaluation/jforum/data/inst/memory-1457670508, /home/staccato/staccato/evaluation/jforum/data/inst/memory-1457672730]
+  openfire:
+    base: [/home/staccato/staccato/evaluation/openfire/data/base/memory-1457662917,
+      /home/staccato/staccato/evaluation/openfire/data/base/memory-1457663350, /home/staccato/staccato/evaluation/openfire/data/base/memory-1457663797]
+    inst: [/home/staccato/staccato/evaluation/openfire/data/inst-mem/memory-1457662741,
+      /home/staccato/staccato/evaluation/openfire/data/inst-mem/memory-1457663174,
+      /home/staccato/staccato/evaluation/openfire/data/inst-mem/memory-1457663621]
+  subsonic:
+    base: [/home/staccato/staccato/evaluation/subsonic/data/base/memory-1457665486,
+      /home/staccato/staccato/evaluation/subsonic/data/base/memory-1457665728, /home/staccato/staccato/evaluation/subsonic/data/base/memory-1457666294]
+    inst: [/home/staccato/staccato/evaluation/subsonic/data/inst/memory-1457665253,
+      /home/staccato/staccato/evaluation/subsonic/data/inst/memory-1457665598, /home/staccato/staccato/evaluation/subsonic/data/inst/memory-1457666064]
+runtime:
+  jforum:
+    base: [/home/staccato/staccato/evaluation/jforum/data/base/respdata-1457666905.csv,
+      /home/staccato/staccato/evaluation/jforum/data/base/respdata-1457667924.csv,
+      /home/staccato/staccato/evaluation/jforum/data/base/respdata-1457668947.csv]
+    inst: [/home/staccato/staccato/evaluation/jforum/data/inst/respdata-1457666751.csv,
+      /home/staccato/staccato/evaluation/jforum/data/inst/respdata-1457667465.csv,
+      /home/staccato/staccato/evaluation/jforum/data/inst/respdata-1457668535.csv]
+  openfire:
+    base: [/home/staccato/staccato/evaluation/openfire/data/base/20160310-1800/data,
+      /home/staccato/staccato/evaluation/openfire/data/base/20160310-1807/data, /home/staccato/staccato/evaluation/openfire/data/base/20160310-1814/data]
+    inst: [/home/staccato/staccato/evaluation/openfire/data/inst-baseline/20160310-1757/data,
+      /home/staccato/staccato/evaluation/openfire/data/inst-baseline/20160310-1804/data,
+      /home/staccato/staccato/evaluation/openfire/data/inst-baseline/20160310-1811/data]
+  subsonic:
+    base: [/home/staccato/staccato/evaluation/subsonic/data/base/respdata-1457664368.csv,
+      /home/staccato/staccato/evaluation/subsonic/data/base/respdata-1457664607.csv,
+      /home/staccato/staccato/evaluation/subsonic/data/base/respdata-1457664848.csv]
+    inst: [/home/staccato/staccato/evaluation/subsonic/data/inst/respdata-1457664155.csv,
+      /home/staccato/staccato/evaluation/subsonic/data/inst/respdata-1457664470.csv,
+      /home/staccato/staccato/evaluation/subsonic/data/inst/respdata-1457664706.csv]
