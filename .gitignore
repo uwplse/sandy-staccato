@@ -11,3 +11,5 @@ classes/
 tmp/
 staccato_logs/
 evaluation/jmeter.log
+bug_db.yml
+*.pyc
