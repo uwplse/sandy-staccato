@@ -10,6 +10,10 @@ eval_script = lambda s: os.path.join(this_dir, s)
 
 projects = ["openfire", "jforum", "subsonic"]
 
+for p in projects:
+    with open(os.path.join(this_dir, p, "bug_db.yml"), 'w') as f:
+        print >> f, '[]'
+
 def compute_bug_statistics(res):
     total_bugs = 0
     total_fp = 0
