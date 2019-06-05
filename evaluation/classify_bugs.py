@@ -35,7 +35,8 @@ for i in bug_db:
     is_repair = i["tags"] == {"repair": True}
     for p in i["props"]:
         if p not in bug_map:
-            print "Unrecognized property: %s %s" % (p, i["id"])
+            if not output_yaml:
+                print "Unrecognized property: %s %s" % (p, i["id"])
             continue
         bug_name = bug_map[p]["name"]
         result = {"repair": is_repair, "type": bug_map[p]["type"] }

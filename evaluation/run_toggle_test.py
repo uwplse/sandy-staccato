@@ -65,16 +65,9 @@ def do_openfire_test(tsung_file, iterations):
     subprocess.check_call(["bash", os.path.join(THIS_DIR, "openfire", "kill_of.sh")])
     return (baseline_dir, toggle_dir)
 
-if True:
-    with open("/home/staccato/staccato/evaluation/testing_data.yml", "r") as f:
-        data = yaml.load(f)
-        ss_result = data["runtime"]["subsonic"]["base"] + data["runtime"]["subsonic"]["inst"]
-        jf_result = data["runtime"]["jforum"]["base"] + data["runtime"]["jforum"]["inst"]
-        of_result = data["runtime"]["openfire"]["base"] + data["runtime"]["openfire"]["inst"]
-else:
-    ss_result = do_tomcat_test("subsonic", "/home/staccato/staccato/evaluation/subsonic/ss_test2_stateless.jmx", 10)
-    jf_result =  do_tomcat_test("jforum", "/home/staccato/staccato/evaluation/jforum/forum_test_stateless.jmx", 10)
-    of_result = do_openfire_test(tsung_file, 10)
+ss_result = do_tomcat_test("subsonic", "/home/staccato/staccato/evaluation/subsonic/ss_test2_stateless.jmx", 10)
+jf_result =  do_tomcat_test("jforum", "/home/staccato/staccato/evaluation/jforum/forum_test_stateless.jmx", 10)
+of_result = do_openfire_test(tsung_file, 10)
 
 print ss_result
 print jf_result

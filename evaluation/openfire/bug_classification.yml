@@ -18,6 +18,8 @@
   type: stale
 - props: xmpp.offline.type
   type: stale
+- props: xmpp.offline.quota
+  type: stale
 - props: xmpp.audit.filesize
   type: stale
 - props: xmpp.audit.days
