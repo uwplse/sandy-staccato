@@ -11,6 +11,7 @@ function subsonic_deploy() {
 	common_deploy $1 $2
 
 	sudo cp $THIS_DIR/subsonic.properties /var/subsonic/subsonic.properties
+        rm -f /var/subsonic/db/subsonic.lck
 	sudo chown tomcat7:tomcat7 /var/subsonic/subsonic.properties
 	set +e
 	sudo /etc/init.d/tomcat7 start

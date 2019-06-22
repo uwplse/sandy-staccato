@@ -30,10 +30,10 @@ class TomcatControl(object):
         pass
 
     def kill(self):
-        subprocess.check_call(["sudo", os.path.join(this_dir, "tomcat_control"), "stop"])
+        subprocess.check_call(["sudo", os.path.join(this_dir, "tomcat_control"), "shutdown"])
 
     def start(self):
-        subprocess.check_call(["sudo", os.path.join(this_dir, "tomcat_control"), "init"])
+        subprocess.check_call(["sudo", os.path.join(this_dir, "tomcat_control"), "start"])
 
 control_module = TomcatControl if sys.argv[1] == "tomcat" else OpenfireControl
 iterations = int(sys.argv[2])

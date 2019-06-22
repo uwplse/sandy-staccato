@@ -43,15 +43,14 @@ def run_bug_finder():
     for p in projects:
         project_dir = lambda f: os.path.join(this_dir, p, f)
         with open(eval_script("staccato_tests.log"), 'a') as out:
-            subprocess.check_call(["python", eval_script("run_staccato.py"), project_dir("test_config.yml")], stdout = out)
-            yaml_dump = subprocess.check_output(["python", eval_script("classify_bugs.py"), project_dir("bug_db.yml"), project_dir("bug_classification.yml"), "--yaml"], stderr = out)
+            subprocess.check_call(["python", eval_script("run_staccato.py"), project_dir("test_config.yml")])
+            yaml_dump = subprocess.check_output(["python", eval_script("classify_bugs.py"), project_dir("bug_db.yml"), project_dir("bug_classification.yml"), "--yaml"])
             bug_results[p] = yaml.load(yaml_dump)
     return compute_bug_statistics(bug_results)
 
 def toggle_test():
     f = tempfile.NamedTemporaryFile(delete = True)
-    with open("/dev/null", "w") as null:
-        o = subprocess.check_output(["python", eval_script("run_toggle_test.py"), f.name], stderr = null)
+    subprocess.check_call(["python", eval_script("run_toggle_test.py"), f.name])
     return yaml.load(f)
 
 with open(sys.argv[1], "w") as out:

@@ -23,6 +23,8 @@ int main(int argc, char **argv) {
 	std::string init_command(dirname(argv[0]));
 	init_command += "/basic_deploy.sh";
 	execlp("bash", "bash", init_command.c_str(), NULL);
+  } else if(mode == std::string("shutdown")) {
+	execlp("bash", "bash", "/etc/init.d/tomcat7", "stop", NULL);
   }
   return -1;
 }

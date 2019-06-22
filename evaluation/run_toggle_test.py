@@ -12,16 +12,30 @@ THIS_DIR = os.path.realpath(os.path.dirname(sys.argv[0]))
 def do_tomcat_test(project, jmx_file, iterations):
     subprocess.check_call(["sudo", os.path.join(THIS_DIR, "deploy_wrapper"), project, "base"])
     rspec = eval_tools.RunSpec(False, None, os.path.join(THIS_DIR, project))
-    base_file = eval_tools.run_jmeter(rspec, jmx_file, "baseline", 702368, 150)
-    subprocess.check_call(["sudo", os.path.join(THIS_DIR, "deploy_wrapper"), project, "base"])
+    print "done toggle deploy"
     toggle_proc = subprocess.Popen(["python", os.path.join(THIS_DIR, "toggle.py"), "tomcat", str(iterations)])
+    print "spawned toggle"
+    t1 = time.time()
     (jm_proc, cont) = eval_tools.get_jmeter_proc(rspec, jmx_file, "toggle", 702368, 550)
+    print "started jmeter"
     toggle_proc.wait()
+    t2 = time.time()
+    print "toggle done???"
+    print "shutting down jmeter"
     subprocess.check_call(["bash", "/home/staccato/apache-jmeter-2.12/bin/shutdown.sh"])
+    print "waiting for jmeter"
     jm_proc.wait()
     toggle_file = cont()
-    subprocess.check_call(["sudo", os.path.join(THIS_DIR, "tomcat_control"), "stop"])
-    return (base_file, toggle_file)
+   
+    subprocess.check_call(["sudo", os.path.join(THIS_DIR, "deploy_wrapper"), project, "base"])
+    (jm_proc, b_cont) = eval_tools.get_jmeter_proc(rspec, jmx_file, "baseline", 702368, 550)
+    time.sleep(t2 - t1)
+    subprocess.check_call(["bash", "/home/staccato/apache-jmeter-2.12/bin/shutdown.sh"])
+    jm_proc.wait()
+    print "successfull ran base"
+    print "killing tomcat"
+    subprocess.check_call(["sudo", os.path.join(THIS_DIR, "tomcat_control"), "shutdown"])
+    return (b_cont(), toggle_file)
 
 def run_tsung(scenario, data_dir):
     output_dir = os.path.join(THIS_DIR, "openfire", "data", data_dir)
@@ -54,26 +68,37 @@ tsung_file = "/home/staccato/staccato/evaluation/openfire/tsung-chat-update-mini
 def do_openfire_test(tsung_file, iterations):
     sys.path.append(os.path.join(THIS_DIR, "openfire"))
     start_of_and_wait()
-    (proc, cont) = run_tsung(tsung_file, "baseline")
-    baseline_dir = cont()
-    start_of_and_wait()
     toggle_proc = subprocess.Popen(["python", os.path.join(THIS_DIR, "toggle.py"), "openfire", str(iterations), "/home/staccato/evaluation-programs/openfire_orig/target/openfire/bin/openfire.sh"])
+    t1 = time.time()
     (tproc, cont) = run_tsung(tsung_file, "toggle")
     toggle_proc.wait()
+    t2 = time.time()
     subprocess.check_call(["tsung", "stop"])
     toggle_dir = cont()
     subprocess.check_call(["bash", os.path.join(THIS_DIR, "openfire", "kill_of.sh")])
+    
+    start_of_and_wait()
+    (proc, cont) = run_tsung(tsung_file, "baseline")
+    time.sleep(t2 - t1)
+    subprocess.check_call(["tsung", "stop"])
+    baseline_dir = cont()
     return (baseline_dir, toggle_dir)
 
-ss_result = do_tomcat_test("subsonic", "/home/staccato/staccato/evaluation/subsonic/ss_test2_stateless.jmx", 10)
-jf_result =  do_tomcat_test("jforum", "/home/staccato/staccato/evaluation/jforum/forum_test_stateless.jmx", 10)
-of_result = do_openfire_test(tsung_file, 10)
+iterations = 10
+
+subprocess.check_call(["bash", os.path.join(THIS_DIR, "openfire/kill_of.sh")])
+subprocess.check_call(["sudo", os.path.join(THIS_DIR, "tomcat_control"), "shutdown"])
+
+ss_result = do_tomcat_test("subsonic", "/home/staccato/staccato/evaluation/subsonic/ss_test2_stateless.jmx", iterations)
+jf_result =  do_tomcat_test("jforum", "/home/staccato/staccato/evaluation/jforum/forum_test_stateless.jmx", iterations)
+of_result = do_openfire_test(tsung_file, iterations)
 
 print ss_result
 print jf_result
 print of_result
 
 tf = tempfile.NamedTemporaryFile(delete = True)
+
 
 yaml.dump({
     "runtime": {
